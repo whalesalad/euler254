@@ -25,5 +25,8 @@
   (is (= 5
          (sum-fac-digits 25))))
 
-;; (deftest test-find-smallest-n
-;;   (is (= )))
+(deftest test-find-smallest-n
+  (is (= 25
+         (find-smallest-n 5)))
+  (is (= 267
+         (find-smallest-n 20))))
