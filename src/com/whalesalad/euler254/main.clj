@@ -1,9 +1,9 @@
-(ns com.whalesalad.euler254.main)
-;; https://projecteuler.net/problem=254
+(ns com.whalesalad.euler254.main
+  "https://projecteuler.net/problem=254"
+  (:require [clojure.string :as str]))
 
-
-(def sum (partial reduce +))
-
+(def sum
+  (partial reduce +))
 
 (defn num-to-digits [n]
   (->> n
@@ -14,10 +14,6 @@
 
 (def sum-digits
   (comp sum num-to-digits))
-
-
-(defn dbl [x]
-  (* 2 x))
 
 
 (def fac 
@@ -53,6 +49,7 @@
     (if (= i (sum-fac-digits x))
       x
       (recur (inc x)))))
+
 
 (defn sum-find-smallest-n [i]
   (-> i
