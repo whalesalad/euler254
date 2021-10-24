@@ -11,21 +11,14 @@
         fixtures (path-join [root "test" "fixtures"])]
     (path-join [fixtures p])))
 
-
-(defn map-values [value-fn input-map]
-  (let [apply-to-values (fn [m k v]
-                          (assoc m k (value-fn v)))]
-    (reduce-kv apply-to-values
-               {}
-               input-map)))
-
 (defn get-test-data-by-kind-and-id [kind test-id]
   (let [kind (name kind)
         path (->> [kind "/" kind test-id ".txt"]
                   (reduce str)
                   (prefix-fixture-path))
         text (slurp path)]
-    (str/split-lines text)))
+    (-> text
+        str/split-lines)))
 
 (defn get-test-data-by-id [test-id]
   (->> [:input :output]
@@ -61,9 +54,23 @@
   (is (= 267
          (find-smallest-n 20))))
 
-;; (deftest test-sum-find-smallest-n
-;;   (is (= 156
-;;          (sum-find-smallest-n 20))))
-
 (deftest test-opening-test-data
-  (is ))
+  (let [expected {:input ["2" "3 1000000" "20 1000000"]
+                  :output ["8" "156"]}]
+    (is (= expected 
+           (first (get-test-data))))))
+
+(deftest test-case-00
+  (let [data (first (get-test-data))
+        input (->> (get data :input)
+                   (drop 1)
+                   (map (fn [x]
+                          (-> x
+                              (str/split #" ")
+                              first
+                              read-string))))
+        output (->> (get data :output)
+                    (map read-string))
+        pairs (map vector input output)]
+    (doseq [[a b] pairs]
+      (is (= (do-the-thing a) b)))))

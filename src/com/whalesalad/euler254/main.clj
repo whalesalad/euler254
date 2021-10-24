@@ -44,14 +44,25 @@
 
 ;; g(i)
 (defn find-smallest-n [i]
-  "Find the smallest int, x, where (= i (sum-fac-digits x))"
-  (loop [x 2]
+  "Find the smallest int, x, 
+   where (= i (sum-fac-digits x))"
+  (loop [x 1]
     (if (= i (sum-fac-digits x))
       x
       (recur (inc x)))))
 
 
+;; sg(i)
 (defn sum-find-smallest-n [i]
   (-> i
       find-smallest-n
       sum-digits))
+
+
+(defn smallest-up-to-n
+  ([b] 
+   (do-the-thing 1 b))
+  ([a b]
+   (->> (range a (inc b))
+        (map sum-find-smallest-n)
+        (reduce +))))
