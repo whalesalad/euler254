@@ -22,5 +22,5 @@ jobs:
           cli: latest
         
       - name: Run tests
-        run: clj -Atest
+        run: clojure -Atest
 
