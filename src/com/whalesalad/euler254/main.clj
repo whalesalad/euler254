@@ -61,7 +61,7 @@
 
 (defn smallest-up-to-n
   ([b] 
-   (do-the-thing 1 b))
+   (smallest-up-to-n 1 b))
   ([a b]
    (->> (range a (inc b))
         (map sum-find-smallest-n)

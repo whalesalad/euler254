@@ -73,4 +73,5 @@
                     (map read-string))
         pairs (map vector input output)]
     (doseq [[a b] pairs]
-      (is (= (do-the-thing a) b)))))
+      (is (= (smallest-up-to-n a) 
+             b)))))
